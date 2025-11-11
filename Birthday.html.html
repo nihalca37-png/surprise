@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Ziya 💖</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fff0f5;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+    h1, h2, p {
+      text-align: center;
+      color: #f90286;
+      margin: 10px;
+    }
+    .center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .hidden { display: none; }
+    button {
+      background: #ff66b2;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 32px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 0 25px #ff99cc;
+      transition: transform .3s, background .3s;
+    }
+    button:hover {
+      background: #ff3385;
+      transform: scale(1.1);
+    }
+
+    .carousel {
+      width: 500px;
+      height: 500px;
+      perspective: 1000px;
+      margin: 250px auto;
+    }
+    .carousel-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: spin cubic-bezier(0.165, 0.84, 0.44, 1) linear infinite;
+    }
+    .carousel-inner img {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 15px #ff80bf;
+      transform-origin: center center;
+    }
+    @keyframes spin {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
+    }
+
+    .final-message {
+      font-size: 40px;
+      color: #ff1a75;
+      text-shadow: 0 0 20px #fff;
+      animation: glow 1.5s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff; }
+      to { text-shadow: 0 0 25px #ff66b2; }
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      color: #ff66b2;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<section id="page1" class="center">
+  <h1>Hey My Love 💖</h1>
+  <h1>Click below for a surprise 🎁</h1>
+  <button id="btn1">Surprise</button>
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2" class="center hidden">
+  <div class="carousel">
+    <div class="carousel-inner" id="carousel-inner"></div>
+  </div>
+  <h2>Happy Birthday Ziya 💞</h2>
+  <p>
+    Every heartbeat of mine whispers your name.<br>
+    Today is yours — and I thank the universe for bringing you into my world.<br><br>
+    Love you beyond words — Nihal 💖
+  </p>
+  <button id="btn2">Next 💖</button>
+</section>
+
+<!-- PAGE 3 -->
+<section id="page3" class="center hidden">
+  <h2>I wish to keep walking this path with you…<br>Will you be my forever, my future partner? 💍</h2>
+  <div>
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 😔</button>
+  </div>
+</section>
+
+<!-- PAGE 4 -->
+<section id="page4" class="center hidden">
+  <h1 class="final-message">Forever Yours, Nihal 💞</h1>
+</section>
+
+<audio id="bg" src="Suzume.mp3.mp3"</audio>
+
+<script>
+const bg = document.getElementById('bg');
+const p1 = document.getElementById('page1');
+const p2 = document.getElementById('page2');
+const p3 = document.getElementById('page3');
+const p4 = document.getElementById('page4');
+
+document.getElementById('btn1').onclick = () => {
+  p1.style.display = "none";
+  p2.style.display = "flex";
+  bg.play().catch(() => {});
+  startHearts();
+  buildCarousel();
+};
+
+document.getElementById('btn2').onclick = () => {
+  p2.style.display = "none";
+  p3.style.display = "flex";
+};
+
+document.getElementById('yes').onclick = () => {
+  p3.style.display = "none";
+  p4.style.display = "flex";
+  setTimeout(() => p4.classList.add('fadeOut'), 8000);
+};
+
+document.getElementById('no').onclick = () => {
+  p3.innerHTML = "<h2>Even if you said no, my love for you will stay forever 💔</h2>";
+  setTimeout(() => p3.classList.add('fadeOut'), 6000);
+};
+
+// floating hearts
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '💖';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = 3 + Math.random() * 3 + 's';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
+}
+
+// build 3D carousel
+function buildCarousel() {
+  const imageSources = [
+    "ziya1.jpg", "ziya2.jpg.jpg", "ziya3.jpg.jpg", "ziya4.jpg.jpg", "ziya5.jpg.jpg",
+    "ziya6.jpg.jpg", "ziya7.jpg.jpg", "ziya8.jpg.jpg", "ziya9.jpg.jpg",
+  ];
+  const container = document.getElementById("carousel-inner");
+  const radius = 250;
+  const total = imageSources.length;
+
+  imageSources.forEach((src, i) => {
+    const angle = (360 / total) * i;
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = `Ziya photo ${i + 1}`;
+    img.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+    container.appendChild(img);
+  });
+}
+</script>
+
+</body>
+</html>
